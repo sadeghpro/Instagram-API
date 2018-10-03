@@ -1,5 +1,5 @@
-# bypass instagram login challenge
-this repo is based on [mgp25/instagram-api](https://github.com/mgp25/Instagram-API/) but you were not able to pass login challanges. so I wrote some code for bypassing the login challenge.
+# Bypass instagram login challenge
+This repo is based on [mgp25/instagram-api](https://github.com/mgp25/Instagram-API/) but you were not able to pass login challanges. so I wrote some code for bypassing the login challenge.
 if you found another challengs, you can report!
 you can see [this](https://github.com/sadeghpro/Instagram-API/blob/master/examples/bypassChallenge) example for bypassing challengs.
 
