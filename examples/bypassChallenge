@@ -1,0 +1,41 @@
+<?php
+
+require '../vendor/autoload.php';
+
+$ig = new \InstagramAPI\Instagram(false, false);
+
+try {
+    $login = $ig->login("test", "test");
+} catch (\InstagramAPI\Exception\InstagramException $e) {
+    if ($e->hasResponse()) {
+        $response = $e->getResponse()->asArray();
+        if (isset($response["message"]) && $response["message"] === "challenge_required") {
+            $apiPath = $e->getResponse()->getChallenge()->getApiPath();//save apiPath for your self because it is used in other methods
+
+            $challenge = $ig->challenge($apiPath);//
+
+            if ($challenge["step_name"] === "select_verify_method") {
+                $selectMethod = $ig->selectVerifyMethod($apiPath, 0);
+                if ($selectMethod["step_name"] === "verify_email") {
+                    $response = $ig->sendSecurityCode($apiPath, "705418");
+                    echo json_encode($response);
+                } else if ($selectMethod["step_name"] === "verify_code") {
+                    $response = $ig->sendSecurityCode($apiPath, "705418");
+                    echo json_encode($response);
+                }
+            } else if ($challenge["step_name"] === "verify_email") {
+                $response = $ig->sendSecurityCode($apiPath, "705418");
+                echo json_encode($response);
+            } else if ($challenge["step_name"] == "submit_phone") {
+                $response = $ig->submitPhone($apiPath, "98xxxxxxxxxx");
+                echo json_encode($response);
+            } else if ($challenge["step_name"] == "verify_code") {
+                $response = $ig->sendSecurityCode($apiPath, "705418");
+                echo json_encode($response);
+            }
+
+        }
+    }
+    // Login failed for some other reason... Re-throw error.
+    throw $e;
+}
