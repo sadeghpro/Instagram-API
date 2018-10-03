@@ -597,12 +597,12 @@ class Instagram implements ExperimentsInterface
                     // Return server response to tell user they need 2-factor.
                     return $e->getResponse();
                 } else {
-                    if($e->hasResponse()){
-                        $response = $e->getResponse()->asArray();
-                        if(isset($response["message"]) && $response["message"] === "challenge_required"){
-                            return $e->getResponse();
-                        }
-                    }
+//                     if($e->hasResponse()){
+//                         $response = $e->getResponse()->asArray();
+//                         if(isset($response["message"]) && $response["message"] === "challenge_required"){
+//                             return $e->getResponse();
+//                         }
+//                     }
                     // Login failed for some other reason... Re-throw error.
                     throw $e;
                 }
